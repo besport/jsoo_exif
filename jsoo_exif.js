@@ -2,22 +2,13 @@
 
     var debug = false;
 
-    var root = this;
-
     var EXIF = function(obj) {
         if (obj instanceof EXIF) return obj;
         if (!(this instanceof EXIF)) return new EXIF(obj);
         this.EXIFwrapped = obj;
     };
 
-    if (typeof exports !== 'undefined') {
-        if (typeof module !== 'undefined' && module.exports) {
-            exports = module.exports = EXIF;
-        }
-        exports.EXIF = EXIF;
-    } else {
-        root.EXIF = EXIF;
-    }
+    joo_global_object.EXIF = EXIF;
 
     var ExifTags = EXIF.Tags = {
 
