@@ -1118,32 +1118,33 @@ function reorientImage(img, callback) {
         function(orientation) {
             var canvas = imgToCanvas(img);
             var ctx = canvas.getContext('2d');
-            canvas.width = img.width;
-            canvas.height = img.height;
-            switch (orientation) {
-            case 2: case 4: case 5: case 7:
-                ctx.translate(canvas.width, 0);
-                ctx.scale(-1, 1);
+
+            if (orientation < 5) {
+                canvas.width = img.width;
+                canvas.height = img.height;
+            } else {
+                canvas.height = img.width;
+                canvas.width = img.height;
             }
             switch (orientation) {
-            case 3:
-            case 4:
-                ctx.translate(img.height, img.width);
-                ctx.rotate(Math.PI);
+            case 2:
+                ctx.transform(-1, 0, 0, 1, img.width, 0);
                 break;
-            case 5:
-            case 6:
-                canvas.height = img.width;
-                canvas.width = img.height;
-                ctx.translate(canvas.width, 0);
-                ctx.rotate(Math.PI / 2);
+            case 3:
+                ctx.transform(-1, 0, 0, -1, img.width, img.height);
+                break;
+            case 4: ctx.transform(1, 0, 0, -1, 0, img.height);
+                break;
+            case 5: ctx.transform(0, 1, 1, 0, 0, 0);
+                break;
+            case 6: ctx.transform(0, 1, -1, 0, img.height, 0);
                 break;
             case 7:
+                ctx.transform(0, -1, -1, 0, img.height, img.width);
+                break;
             case 8:
-                canvas.height = img.width;
-                canvas.width = img.height;
-                ctx.translate(0, canvas.height);
-                ctx.rotate(-Math.PI / 2);
+                ctx.transform(0, -1, 1, 0, 0, img.width);
+                break;
             }
             ctx.drawImage(img, 0, 0);
             document.body.appendChild(canvas);
