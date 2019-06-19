@@ -1147,7 +1147,6 @@ function reorientImage(img, callback) {
                 break;
             }
             ctx.drawImage(img, 0, 0);
-            document.body.appendChild(canvas);
             var rv = canvas.toDataURL();
             imgOfString(rv, callback);
         }
