@@ -1119,12 +1119,12 @@ function reorientImage(img, callback) {
             var canvas = imgToCanvas(img);
             var ctx = canvas.getContext('2d');
 
-            if (orientation < 5) {
-                canvas.width = img.width;
-                canvas.height = img.height;
-            } else {
+            if (orientation > 4) {
                 canvas.height = img.width;
                 canvas.width = img.height;
+            } else {
+                canvas.width = img.width;
+                canvas.height = img.height;
             }
             switch (orientation) {
             case 2:
